@@ -10,6 +10,8 @@ library(tidyverse)
 library(readxl)
 library(haven)
 library(janitor)
+library(ggridges)
+library(ggthemes)
 ```
 
 ```{r load pup data, warning= FALSE, comment= NA}
@@ -17,6 +19,31 @@ pups_data = read.csv("./FAS_pups.csv") %>%
     clean_names() %>%
     gather(key = PD_outcome, value = days, pd_ears: pd_walk)
 ```
+
+```{r pups ridges plot}
+pups_ridges_data = pups_data%>%
+  select(litter_number,PD_outcome,days)%>%
+  group_by(PD_outcome) 
+  
+
+pups_ridges_plot = ggplot(pups_ridges_data, aes(x=days, y=PD_outcome))+
+  geom_density_ridges(aes(fill = PD_outcome),color = "black",scale = .85)+ 
+  ggtitle("Relationship between developmental landmarkers and postnatal days")
+pups_ridges_plot
+```
+```{r pups bar graph}
+pups_data_bar_graph= pups_data %>% 
+  select(litter_number,PD_outcome,days)%>%
+  group_by(PD_outcome) %>% 
+  summarise(pd_mean = mean(days,na.rm = TRUE))
+  
+
+pups_bar_graph = ggplot(pups_data_bar_graph, aes(x=PD_outcome, y=pd_mean, color = PD_outcome)) + 
+  geom_bar(stat = "identity", width = 0.5, fill = "white") + ggtitle("Relationship between developmental landmarkers and postnatal days(mean)")
+pups_bar_graph
+```
+
+
 
 
 
