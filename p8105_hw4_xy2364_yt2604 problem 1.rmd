@@ -43,6 +43,9 @@ pups_bar_graph = ggplot(pups_data_bar_graph, aes(x=PD_outcome, y=pd_mean, color 
 pups_bar_graph
 ```
 
+* Comments:  
+According to the bar graph, the forward sequence of developing the landmarkers (average) is pd_ears, pd_pivot, pd_walk, pd_eyes.   
+According to the ridge plot, we can also derive from each of the distributions that the forward sequence of developing the landmarkers is pd_ears, pd_pivot, pd_walk, pd_eyes.
 
 
 
